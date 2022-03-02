@@ -64,10 +64,12 @@ public class US13_TC2 {
         WebElement sendButton=driver.findElement(By.xpath("//button[@id='blog-submit-button-save']"));
         sendButton.click();
 
-        //verify if The message title is not specified is displayed
+        //verify if the message title is not specified is displayed
         WebElement errorText= driver.findElement(By.xpath("//*[text()='The message title is not specified']"));
 
         Assert.assertTrue(errorText.isDisplayed());
+
+
 
     }
 
