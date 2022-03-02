@@ -49,6 +49,11 @@ public class US13_TC2 {
         WebElement errorText= driver.findElement(By.xpath("//*[text()='The message title is not specified']"));
         Assert.assertTrue(errorText.isDisplayed());
 
+        String expectedText="The message title is not specified";
+        String actualText=errorText.getText();
+        Assert.assertEquals(actualText,expectedText,"Warning Message did not appear!");
+
+
     }
 
 
