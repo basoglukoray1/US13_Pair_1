@@ -1,5 +1,6 @@
 package com.us13_Pair1;
 
+import com.utilities.BrowserUtils;
 import com.utilities.CRM_Utilities;
 import com.utilities.ConfigurationReader;
 import com.utilities.WebDriverFactory;
@@ -14,13 +15,8 @@ import org.testng.annotations.Test;
 import java.util.concurrent.TimeUnit;
 
 public class US13_TC2 {
-
-
-
-
-        WebDriver driver;
-
-        @BeforeMethod
+    WebDriver driver;
+    @BeforeMethod
         public void setUp() {
             driver = WebDriverFactory.getDriver(ConfigurationReader.getProperty("browser"));
             driver.manage().window().maximize();
@@ -30,11 +26,10 @@ public class US13_TC2 {
             //1-User on the homepage
             CRM_Utilities.crm_login(driver, ConfigurationReader.getProperty("usernameHelp1"), ConfigurationReader.getProperty("password"));
         }
-
         @AfterMethod
         public void tearDown() throws InterruptedException {
-            Thread.sleep(2000);
-            //  driver.close();
+            BrowserUtils.sleep(3);
+             driver.close();
 
         }
 
@@ -44,32 +39,15 @@ public class US13_TC2 {
         //click MORE button to see appreciation option
         WebElement moreButton=driver.findElement(By.xpath("//*[@class='feed-add-post-form-link-text']"));
         moreButton.click();
-
         //click Appreciation option
         WebElement appreciationButton= driver.findElement(By.xpath("//*[text()='Appreciation']"));
         appreciationButton.click();
-
-        //changing focus to iframe
-        driver.switchTo().frame(driver.findElement(By.xpath("(//iframe)[1]")));
-
-        //enter some content
-        WebElement content= driver.findElement(By.xpath("//body[@contenteditable='true']"));
-
-        content.sendKeys("");
-
-        //changing focus to parent frame
-        driver.switchTo().parentFrame();
-
         //click send button
         WebElement sendButton=driver.findElement(By.xpath("//button[@id='blog-submit-button-save']"));
         sendButton.click();
-
         //verify if the message title is not specified is displayed
         WebElement errorText= driver.findElement(By.xpath("//*[text()='The message title is not specified']"));
-
         Assert.assertTrue(errorText.isDisplayed());
-
-
 
     }
 
@@ -79,3 +57,14 @@ public class US13_TC2 {
 
 
 }
+/*
+        //changing focus to iframe
+        driver.switchTo().frame(driver.findElement(By.xpath("(//iframe)[1]")));
+        //enter some content
+        WebElement content= driver.findElement(By.xpath("//body[@contenteditable='true']"));
+        content.sendKeys("");
+        //changing focus to parent frame
+        driver.switchTo().parentFrame();
+
+
+ */
